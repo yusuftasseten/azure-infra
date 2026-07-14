@@ -54,6 +54,8 @@ jobs:
     # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
     - name: Terraform Plan
       id: tf-plan
+      env:
+        TF_VAR_lvm_ssh_pub: ${{ secrets.LVM_SSH_PUB }}
       run: |
         export exitcode=0
         terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
@@ -143,4 +145,6 @@ jobs:
 
     # Terraform Apply
     - name: Terraform Apply
+      env:
+        TF_VAR_lvm_ssh_pub: ${{ secrets.LVM_SSH_PUB }}
       run: terraform apply -auto-approve tfplan

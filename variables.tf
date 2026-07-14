@@ -133,6 +133,11 @@ variable "lvm_adminuser" {
   type        = string
 }
 
+variable "lvm_ssh_pub" {
+  description = "The Public SSH Key for the VM"
+  type = string
+}
+
 variable "lvm_os_disk_caching" {
   description = "OS Disk Caching of the Linux Virtual Machine"
   type        = string
