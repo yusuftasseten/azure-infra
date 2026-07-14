@@ -135,7 +135,7 @@ variable "lvm_adminuser" {
 
 variable "lvm_ssh_pub" {
   description = "The Public SSH Key for the VM"
-  type = string
+  type        = string
 }
 
 variable "lvm_os_disk_caching" {
