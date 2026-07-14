@@ -6,6 +6,6 @@ terraform {
     container_name       = "tfstate"
     key                  = "azure-infra/dev/terraform.tfstate" # Path within the container
     use_azuread_auth     = true
-    use_cli              = true # Use Azure CLI authentication for local development
+    use_oidc             = true
   }
 }
