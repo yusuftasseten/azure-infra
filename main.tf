@@ -83,7 +83,7 @@ resource "azurerm_linux_virtual_machine" "lvm" {
     azurerm_network_interface.nic.id,
   ]
 
-  allow_extension_operations=false
+  allow_extension_operations = false
 
   admin_ssh_key {
     username   = var.lvm_adminuser
