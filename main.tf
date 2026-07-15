@@ -31,7 +31,12 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "snet_nsg_link" {
-  subnet_id                 = azurerm_subnet.public.id
+  for_each = {
+    public  = azurerm_subnet.public.id
+    private = azurerm_subnet.private.id
+  }
+
+  subnet_id                 = each.value
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
 
@@ -65,7 +70,6 @@ resource "azurerm_network_interface" "nic" {
     name                          = var.nic_ip_config_name
     subnet_id                     = azurerm_subnet.public.id
     private_ip_address_allocation = var.nic_ip_allocation_method
-    public_ip_address_id          = azurerm_public_ip.pip.id
   }
 }
 
@@ -78,6 +82,8 @@ resource "azurerm_linux_virtual_machine" "lvm" {
   network_interface_ids = [
     azurerm_network_interface.nic.id,
   ]
+
+  allow_extension_operations=false
 
   admin_ssh_key {
     username   = var.lvm_adminuser
